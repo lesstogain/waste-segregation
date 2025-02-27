@@ -1,6 +1,6 @@
-let model;
 let serialPort;
 let writer;
+let model; // Only declared once
 
 // 🚀 Load AI Model
 async function loadModel() {
@@ -30,11 +30,18 @@ async function startWebcam() {
 // 📷 Capture Image from Webcam
 function captureImage() {
     const video = document.getElementById("videoElement");
+    if (!video || !video.srcObject) {
+        console.error("Webcam is not active.");
+        alert("Please start the webcam first!");
+        return null;
+    }
+
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     const ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
     return tf.browser.fromPixels(canvas).resizeNearestNeighbor([224, 224]).toFloat().expandDims();
 }
 
@@ -47,11 +54,12 @@ async function classifyWaste() {
 
     console.log("Capturing image...");
     const inputTensor = captureImage();
+    if (!inputTensor) return;
+
     console.log("Running AI prediction...");
-    
     const predictions = await model.predict(inputTensor).data();
     const resultIndex = predictions.indexOf(Math.max(...predictions));
-    
+
     const labels = ["Biodegradable", "Non-Biodegradable"]; // Update with actual class names
     const resultText = labels[resultIndex];
 
@@ -70,15 +78,15 @@ async function classifyWaste() {
 // 📡 Connect to Arduino via Web Serial API
 async function connectArduino() {
     try {
+        console.log("Requesting serial port...");
         serialPort = await navigator.serial.requestPort();
         await serialPort.open({ baudRate: 9600 });
 
-        // Get a writable stream to send data
         writer = serialPort.writable.getWriter();
-
         console.log("Connected to Arduino!");
     } catch (error) {
         console.error("Failed to connect to Arduino:", error);
+        alert("Error connecting to Arduino. Check if it's properly plugged in.");
     }
 }
 
