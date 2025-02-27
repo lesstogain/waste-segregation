@@ -1,16 +1,17 @@
 let serialPort;
 let writer;
-let model; // Only declared once
+let model;
 
-// 🚀 Load AI Model
+// 📢 Load AI Model (GitHub Pages Compatible)
 async function loadModel() {
     try {
         console.log("Loading AI model...");
-        model = await tf.loadLayersModel("model/model.json");
+        const modelPath = "https://lesstogain.github.io/waste-segregation/model/model.json";
+        model = await tf.loadLayersModel(modelPath);
         console.log("Model loaded successfully!");
     } catch (error) {
         console.error("Error loading model:", error);
-        alert("Failed to load AI model. Check file path!");
+        alert("Failed to load AI model. Check file path or GitHub repository!");
     }
 }
 
@@ -23,7 +24,7 @@ async function startWebcam() {
         console.log("Webcam started successfully!");
     } catch (error) {
         console.error("Webcam error:", error);
-        alert("Camera not found or permission denied!");
+        alert("Allow webcam access in browser settings!");
     }
 }
 
@@ -94,4 +95,5 @@ async function connectArduino() {
 window.onload = function () {
     loadModel();
 };
+
 
