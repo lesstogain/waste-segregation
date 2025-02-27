@@ -6,3 +6,4 @@
     const prediction = await model.predict(video);
     console.log(prediction);
 }
+const model = await tf.loadLayersModel('model.json');
