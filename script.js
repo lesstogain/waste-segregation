@@ -7,3 +7,7 @@ async function startWebcam() {
         alert("Camera not found or permission denied!");
     }
 }
+function classifyWaste() {
+    console.log("Waste classification started.");
+    // Your classification logic here
+}
