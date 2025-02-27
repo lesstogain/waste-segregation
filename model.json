@@ -7,3 +7,5 @@
     console.log(prediction);
 }
 const model = await tf.loadLayersModel('model.json');
+const modelPath = "Model/model.json";  // Case-sensitive
+model = await tf.loadLayersModel(modelPath);
