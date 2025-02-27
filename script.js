@@ -86,3 +86,4 @@ async function connectArduino() {
 window.onload = function () {
     loadModel();
 };
+const model = await tf.loadLayersModel('model.json');
