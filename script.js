@@ -20,3 +20,19 @@ async function startWebcam() {
         alert("Camera not found or permission denied!");
     }
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Segregation AI</title>
+</head>
+<body>
+    <h1>Waste Segregation AI</h1>
+    
+    <button onclick="startWebcam()">Start Webcam</button>
+    <video id="videoElement" autoplay></video>
+
+    <script src="script.js"></script>
+</body>
+</html>
