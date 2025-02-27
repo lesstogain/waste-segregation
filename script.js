@@ -36,3 +36,15 @@ async function startWebcam() {
     <script src="script.js"></script>
 </body>
 </html>
+async function startWebcam() {
+    try {
+        console.log("Requesting webcam access...");
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        document.getElementById("videoElement").srcObject = stream;
+        console.log("Webcam started successfully!");
+    } catch (error) {
+        console.error("Webcam error:", error);
+        alert("Camera not found or permission denied!");
+    }
+}
+
